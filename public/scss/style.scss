@@ -3,7 +3,24 @@ body {
 	font: 16px "proxima-nova","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-
+table {
+	border: 2px solid blue;
+	border-radius: 10px;
+}
+td {
+	padding: 5px
+}
+.input_button {
+	background-color: blue; /* Green */
+	border: 1px solid darkblue;
+	color: rgb(209, 239, 245);
+	padding: 10px 22px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 20px;
+}
 a {
 	color: #00B7FF;
 	text-decoration: none;
