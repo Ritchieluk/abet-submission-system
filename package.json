@@ -8,9 +8,9 @@
     "scratch:unix": "node ./src/dev/scratch.js",
     "test:unix": "./node_modules/mocha/bin/mocha \"src/test/cases/**/*.js\"",
     "debug:unix": "node ./node_modules/nodemon/bin/nodemon.js --exec npm run start:unix",
-		"migrate:unix": "node ./node_modules/knex/bin/cli.js migrate:latest",
-		"seed:unix": "node ./node_modules/knex/bin/cli.js seed:run",
-		"setup_db:unix": "npm run migrate:unix && npm run seed:unix"
+    "migrate:unix": "node ./node_modules/knex/bin/cli.js migrate:latest",
+    "seed:unix": "node ./node_modules/knex/bin/cli.js seed:run",
+    "setup_db:unix": "npm run migrate:unix && npm run seed:unix"
   },
   "repository": {
     "type": "git",
@@ -33,7 +33,8 @@
     "mustache-express": "^1.3.0",
     "node-sass-middleware": "0.11.0",
     "objection": "^2.0.0-alpha.8",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "psql": "0.0.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
