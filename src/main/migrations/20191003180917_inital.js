@@ -1,5 +1,5 @@
 exports.up = knex => {
-  return knex.schema
+	return knex.schema
 		.createTable('department', table => {
 			table.increments('id')
 				.primary()
@@ -10,21 +10,21 @@ exports.up = knex => {
 				.unique()
 				.notNullable()
 		})
-    .createTable('users', table => {
+		.createTable('users', table => {
 			table.increments('id')
 				.primary()
 			table.string('linkblue_username')
 				.unique()
 				.notNullable()
-    })
-    .createTable('term_type', table => {
+		})
+		.createTable('term_type', table => {
 			table.increments('id')
 				.primary()
 			table.string('type')
 				.unique()
 				.notNullable()
-    })
-    .createTable('term', table => {
+		})
+		.createTable('term', table => {
 			table.increments('id')
 				.primary()
 			table.integer('type')
@@ -113,7 +113,7 @@ exports.up = knex => {
 			table.integer('year')
 				.unsigned()
 				.notNullable()
-			table.unique('course_id', 'section', 'semester_term_id', 'year')
+			table.unique(['course_id', 'section', 'semester_term_id', 'year'])
 		})
 		.createTable('portfolio_slo', table => {
 			table.increments('id')
@@ -174,8 +174,8 @@ exports.down = knex => {
 		.dropTableIfExists('course')
 		.dropTableIfExists('slo_metric')
 		.dropTableIfExists('slo')
-    .dropTableIfExists('users')
-    .dropTableIfExists('term')
+		.dropTableIfExists('users')
+		.dropTableIfExists('term')
 		.dropTableIfExists('term_type')
 		.dropTableIfExists('department')
 }
