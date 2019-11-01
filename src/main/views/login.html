@@ -1,11 +1,19 @@
 <section class="login_page container">
 	<form target="_self" method="POST">
-		<div class="row">
-			<label for="username">username: </label><input type="text" name="username">
-		</div>
-		<div class="row">
-			<label for="password">password: </label><input type="password" name="password">
-		</div>
-		<input type="submit" style="display: none" />
+		<table>
+			<tr>
+				<td><label for="username">Username: </label></td>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr>
+				<td><label for="password">Password: </label></td>
+				<td><input type="text" name="password"></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit"/>
+				</td>
+			</tr>
+		</table>
 	</form>
 </section>
