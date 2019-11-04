@@ -1,4 +1,6 @@
 const Portfolio = require('../models/CoursePortfolio')
+const Course = require('../models/Course')
+const { transaction } = require('objection');
 
 module.exports.new = async ({
 	department_id,
@@ -10,10 +12,49 @@ module.exports.new = async ({
 	student_learning_outcomes,
 	section
 }) => {
-	// TODO
 	return {
-		id: 'todo'
+		section: parseInt(section),
+		student_learning_outcomes: student_learning_outcomes,
+		course_number: parseInt(course_number),
+		semester_term_id: parseInt(semester),
+		instructor_id: parseInt(instructor),
+		year: parseInt(year),
+		num_students: parseInt(num_students),
+		department_id: parseInt(department_id)
 	};
+}
+
+module.exports.save = async (new_portfolio) => {
+	let trx;
+	try {
+		trx = await transaction.start(Portfolio.knex());
+		
+		var theCourse = await Course.query().findOne('number', '=', new_portfolio.course_number);
+		if (!theCourse) {
+			const newId = Course.knex().count() + 1
+			theCourse = await Course.query().insert({
+				number: new_portfolio.course_number,
+				department_id: new_portfolio.department_id
+			});
+			
+		}
+		const savedPortfolio = await Portfolio.query().insert({
+			section: new_portfolio.section,
+			course_id: theCourse.id,
+			semester_term_id: new_portfolio.semester_term_id,
+			instructor_id: new_portfolio.instructor_id,
+			year: new_portfolio.year,
+			num_students: new_portfolio.num_students
+		});
+
+		await trx.commit();
+
+		return savedPortfolio.id;
+	} catch (err) {
+		console.log(err);
+		await trx.rollback();
+		return -1;
+	}
 }
 
 

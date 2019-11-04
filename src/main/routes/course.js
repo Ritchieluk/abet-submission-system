@@ -138,7 +138,11 @@ router.route('/:id')
 					section: req.body.course_section
 				})
 
-				res.redirect(302, `/course/${course_portfolio.id}`)
+				const id = await course_portfolio_lib.save(course_portfolio);
+
+				if (id != -1) {
+					res.redirect(302, `/course/${id}`);
+				}
 			} else {
 				await course_new_page(res, req.body.department)
 			}
