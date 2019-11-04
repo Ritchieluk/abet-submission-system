@@ -15,7 +15,11 @@ describe('Lib - CoursePortfolio', () => {
 		it('with new course', async () => {
 			const CoursePortfolio = require('../../../main/models/CoursePortfolio')
 			const Course = require('../../../main/models/Course')
-				
+			
+			sandbox.stub(Course, "query").returns({
+				findOne: sinon.stub().returns({
+				})
+			})
 			
 		})
 

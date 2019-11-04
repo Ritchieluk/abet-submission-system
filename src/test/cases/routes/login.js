@@ -1,5 +1,5 @@
-const login = require('../../../../main/routes/login');
-const { expect } = require('../../../chai');
+const login = require('../../../main/routes/login');
+const { expect } = require('../../chai');
 const sinon = require('sinon')
 
 const sandbox = sinon.createSandbox()

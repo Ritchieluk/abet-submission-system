@@ -31,7 +31,6 @@ module.exports.save = async (new_portfolio) => {
 		
 		var theCourse = await Course.query().findOne('number', '=', new_portfolio.course_number);
 		if (!theCourse) {
-			const newId = Course.knex().count() + 1
 			theCourse = await Course.query().insert({
 				number: new_portfolio.course_number,
 				department_id: new_portfolio.department_id
