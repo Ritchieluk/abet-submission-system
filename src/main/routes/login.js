@@ -11,13 +11,17 @@ router.get('/', function (req, res, next) {
 })
 
 /* POST login page */
-router.post('/', (req, res, next) => {
-	// hard coded username and password
+router.post('/', function (req, res, next) {loginPost(req, res, next)})
+
+function loginPost(req, res, next) {
 	if (req.body.username === 'user' && req.body.password === 'password') {
 		res.redirect(302, '/course/')
+	} else if (req.body.username.length == 0 || req.body.password.length == 0){
+		res.redirect(302, '/login?none')
 	} else {
-		res.redirect(302, '/login/')
+		res.redirect(302, '/login?fail')
 	}
-})
+}
 
 module.exports = router;
+

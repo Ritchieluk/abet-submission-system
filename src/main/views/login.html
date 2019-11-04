@@ -1,27 +1,51 @@
 <section class="login_page container">
 	<form target="_self" method="POST">
-		<table>
-			<th>
-				<h3>Please Login!</h3>
-			</th>
-			<tr>
-				<td>
-					<label for="username">Username: </label>
-					<input type="text" name="username">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="password">Password: </label>
-					<input type="text" name="password">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input class="input_button" type="submit"/>
-				</td>
-				
-			</tr>
-		</table>
+		<div class="tableDiv">
+			<h4 class="loginHeader">Please Login!</h4>
+			<table>
+				<tr>
+					<td>
+						<label for="username">Username: </label>
+					</td>
+					<td>
+						<input type="text" name="username">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="password">Password: </label>
+					</td>
+					<td>
+						<input type="password" name="password">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input class="input_button" type="submit"/>
+					</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		
 	</form>
+	<div id="errorMessage" >
+			<h5 id="errorHeader" class="error">Incorrect Password</h3>
+	</div>
+	<script>
+		document.addEventListener("DOMContentLoaded", checkFail());
+		function checkFail(){
+			if(window.location.href.includes("?fail")){
+				document.getElementById("errorMessage").style.display = "initial";
+				document.getElementById("errorHeader").innerHTML = "Incorrect Username or Password"
+			}
+			else if (window.location.href.includes("?none")){
+				document.getElementById("errorMessage").style.display = "initial";
+				document.getElementById("errorHeader").innerHTML = "Please Enter your Username and Password"
+			}
+			else{
+				document.getElementById("errorMessage").style.display = "none";
+			}
+		}
+	</script>
 </section>
