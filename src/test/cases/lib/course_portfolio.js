@@ -7,6 +7,20 @@ const sandbox = sinon.createSandbox();
 
 describe('Lib - CoursePortfolio', () => {
 
+	describe('save', async () => {
+		afterEach(() => {
+			sandbox.restore()
+		})
+
+		it('with new course', async () => {
+			const CoursePortfolio = require('../../../main/models/CoursePortfolio')
+			const Course = require('../../../main/models/Course')
+				
+			
+		})
+
+	})
+
 	describe('get', () => {
 
 		// this is ran after each unit test
