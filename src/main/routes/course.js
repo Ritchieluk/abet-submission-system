@@ -3,6 +3,7 @@ var mustache = require('../common/mustache')
 var html = require('../common/html')
 var course_portfolio_lib = require('../lib/course_portfolio')
 var router = express.Router();
+var cookieParser = require('cookie-parser')
 
 const Department = require('../models/Department')
 const TermType = require('../models/TermType')
@@ -107,9 +108,11 @@ const course_new_page = async (res, department = false) => {
 /* GET course home page */
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
+		console.log(req.cookies.username)
 		res.render('base_template', {
 			title: 'Course Portfolios',
-			body: mustache.render('course/index')
+			body: mustache.render('course/index'),
+			username: req.cookies.username
 		})
 	}))
 

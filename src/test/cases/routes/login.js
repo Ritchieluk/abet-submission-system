@@ -1,55 +1,103 @@
-const login = require('../../../../main/routes/login');
-const { expect } = require('../../../chai');
-const sinon = require('sinon')
-
-const sandbox = sinon.createSandbox()
+const login = require('../../../main/routes/login');
+const { expect } = require('../../chai');
 
 describe('Route - Login', () => {
 
 	describe('login', () => {
 
-        afterEach(()=>{
-            sandbox.restore()
-        })
+        
+        it('properly stores a cookie', ()=>{
+            let next = 0
+            let input_req = {
+                body: {
+                    username: "user",
+                    password: "password"
+                }
+            }
+            let actual_output = {}
+            let input_res = {
+                redirect: function (num, string) {
+                    actual_output.redirect = (num, string)
+                },
+                cookie: function (key, value){
+                    actual_output.cookie = (key, value)
+                }
+            }
+            expected_output = ('username', 'user')
+            login.loginPost(input_req, input_res, next)
+
+            expect(actual_output.cookie).to.equal(expected_output)
+        }) 
 
 		it('with no username or password',  () => {
             
-            sandbox.stub(login, 'res.redirect').returns()
-
-            let input_req, input_res, next
-            input_req.body.username = ""
-            input_req.body.password = ""
-
-            expected_res_input = (302, '/login?none')
+            let next = 0
+            let input_req = {
+                body: {
+                    username: "",
+                    password: ""
+                }
+            }
+            let actual_output = {}
+            let input_res = {
+                redirect: function (num, string) {
+                    actual_output.redirect = (num, string)
+                },
+                cookie: function (key, value){
+                    actual_output.cookie = (key, value)
+                }
+            }
+            expected_output = (302, '/login?none')
             login.loginPost(input_req, input_res, next)
 
-            expect(login.res.redirect.calledOnceWithExactly(expected_res_input)).to.be.true 
+            expect(actual_output.redirect).to.equal(expected_output) 
         })
         
         it('with faulty username or password',  () => {
-            sandbox.stub(login, 'res.redirect').returns()
 
-            let input_req, input_res, next
-            input_req.body.username = 'user1'
-            input_req.body.password = 'incorrectpassword'
-
-            expected_res_input = (302, '/login?fail')
+            let next = 0
+            let input_req = {
+                body: {
+                    username: "u",
+                    password: "p"
+                }
+            }
+            let actual_output = {}
+            let input_res = {
+                redirect: function (num, string) {
+                    actual_output.redirect = (num, string)
+                },
+                cookie: function (key, value){
+                    actual_output.cookie = (key, value)
+                }
+            }
+            expected_output = (302, '/login?fail')
             login.loginPost(input_req, input_res, next)
 
-            expect(login.res.redirect.calledOnceWithExactly(expected_res_input)).to.be.true 
+            expect(actual_output.redirect).to.equal(expected_output)  
         })
 
         it('with correct username and password', ()=> {
-            sandbox.stub(login, 'res.redirect').returns()
-
-            let input_req, input_res, next
-            input_req.body.username = 'user'
-            input_req.body.password = 'password'
-
-            expected_res_input = (302, '/course/')
+            let next = 0
+            let input_req = {
+                body: {
+                    username: "user",
+                    password: "password"
+                }
+            }
+            let actual_output = {}
+            let input_res = {
+                redirect: function (num, string) {
+                    actual_output.redirect = (num, string)
+                },
+                cookie: function (key, value){
+                    actual_output.cookie = (key, value)
+                }
+            }
+            expected_output = (302, '/course/')
             login.loginPost(input_req, input_res, next)
 
-            expect(login.res.redirect.calledOnceWithExactly(expected_res_input)).to.be.true 
+            expect(actual_output.redirect).to.equal(expected_output) 
         })
 
 	})
