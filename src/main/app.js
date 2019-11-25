@@ -35,8 +35,10 @@ app.use('/css', sassMiddleware({
 }));
 app.use(express.static(path.join(project_root, 'public')));
 
-app.use('/', require('./routes/index'))
-app.use('/login', require('./routes/login'));
+login = require('./routes/login');
+
+app.use('/', require('./routes/index'));
+app.use('/login', login.router);
 app.use('/course', require('./routes/course'));
 
 module.exports = app;
