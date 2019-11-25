@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+var favicon = require('serve-favicon')
 
 // init objection
 require('./common/objection')
@@ -40,5 +41,7 @@ login = require('./routes/login');
 app.use('/', require('./routes/index'));
 app.use('/login', login.router);
 app.use('/course', require('./routes/course'));
+
+app.use(favicon(path.join(project_root, 'public', 'favicon.ico')))
 
 module.exports = app;
