@@ -1,6 +1,6 @@
 exports.up = knex => {
     return knex.schema.table('course', function(t) {
-        t.binary('archived').notNull().defaultTo(false);
+        t.boolean('archived').notNull().defaultTo(false);
     });
 };
 
