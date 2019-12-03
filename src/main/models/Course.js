@@ -24,6 +24,7 @@ class Course extends Model {
         id: { type: 'integer' },
         department_id: { type: 'integer' },
         number: { type: 'integer' },
+        archived: { type: 'boolean'}
       }
     };
   }
