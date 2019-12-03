@@ -16,8 +16,9 @@
 <body class="container">
 	<header class="row container">
 		<h1>Computer Science Department ABET System</h1>
-		<h3 id="user">Hello, {{username}}</h3>
+
 	</header>
+	{{{login_header}}}
 	<section class="row container">
 		{{{body}}}
 	</section>
@@ -29,10 +30,10 @@
 	function checkUser(){
 		userText = document.getElementById('user').innerHTML
 		if(userText.length > 7){
-			document.getElementById("user").style.display = "initial";
+			document.getElementById("user_header").style.display = "initial";
 		}
 		else{
-			document.getElementById("user").style.display = "none";
+			document.getElementById("user_header").style.display = "none";
 		}
 	}
 </script>
