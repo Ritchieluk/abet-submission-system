@@ -133,9 +133,8 @@ router.route('/')
 			}),
 			login_header: `<header class="row container">
 			<h3 id="user">Hello, ${req.cookies.username}</h3>
-		</header>`,
-			username: req.cookies.username
-		})
+		</header>`
+			})
 	}))
 
 /* GET course page */
