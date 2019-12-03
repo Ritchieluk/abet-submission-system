@@ -108,12 +108,33 @@ const course_new_page = async (res, department = false) => {
 /* GET course home page */
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
-		console.log(req.cookies.username)
+		/*let trx
+		try {
+			trx = await transaction.start(Portfolio.knex());
+
+			var theCourse = await Course.query().
+		} catch (err) {
+
+		}*/
+		
+
+			active_courses_html = mustache.render('course/course_row',{
+				ID: 'CS420',
+				semester: 'Fall',
+				year: 2019,
+				artifact_progress: '6/9',
+				date: '12/08/19',
+				location: '23'
+			})
 		res.render('base_template', {
 			title: 'Course Portfolios',
-			body: mustache.render('course/index'),
-			username: req.cookies.username
-		})
+			body: mustache.render('course/index', {
+				active_courses: active_courses_html
+			}),
+			login_header: `<header class="row container">
+			<h3 id="user">Hello, ${req.cookies.username}</h3>
+		</header>`
+			})
 	}))
 
 /* GET course page */

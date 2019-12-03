@@ -16,26 +16,15 @@
 <body class="container">
 	<header class="row container">
 		<h1>Computer Science Department ABET System</h1>
-		<h3 id="user">Hello, {{username}}</h3>
+
 	</header>
+	{{{login_header}}}
 	<section class="row container">
 		{{{body}}}
 	</section>
 	<footer class="row container">
 	</footer>
 </body>
-<script>
-	document.addEventListener("DOMContentLoaded", checkUser());
-	function checkUser(){
-		userText = document.getElementById('user').innerHTML
-		if(userText.length > 7){
-			document.getElementById("user").style.display = "initial";
-		}
-		else{
-			document.getElementById("user").style.display = "none";
-		}
-	}
-</script>
 
 </html>
 
