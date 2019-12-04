@@ -43,7 +43,8 @@ module.exports.save = async (new_portfolio) => {
 			semester_term_id: new_portfolio.semester_term_id,
 			instructor_id: new_portfolio.instructor_id,
 			year: new_portfolio.year,
-			num_students: new_portfolio.num_students
+			num_students: new_portfolio.num_students,
+			archived: false
 		});
 
 		await trx.commit();

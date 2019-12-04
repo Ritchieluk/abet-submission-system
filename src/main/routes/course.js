@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser')
 
 const Department = require('../models/Department')
 const TermType = require('../models/TermType')
+const Portfolio = require('../models/CoursePortfolio')
 
 const course_manage_page = async (res, course_id) => {
 	let course_info = {
@@ -103,6 +104,14 @@ const course_new_page = async (res, department = false) => {
 			semesters
 		})
 	})
+}
+
+router.get('/archive/:id', function (req, res, next) {archivePortfolio(req, res, req.params.id)})
+async function archivePortfolio(req, res, id) {
+	const numUpdated = await Portfolio.query()
+		.findOne('id', '=', id)
+		.patch({archived: true});
+	res.redirect(302, '/course/' + id)
 }
 
 /* GET course home page */

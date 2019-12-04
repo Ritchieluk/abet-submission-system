@@ -3,6 +3,7 @@
 	<div class="container row">
 		Course Summary
 	</div>
+
 	<div class="container row">
 		{{#student_learning_outcomes}}
 		<h3>Student Learning Outcome {{index}}</h3>
@@ -74,9 +75,19 @@
 					{{/evaluations}}
 				</table>
 				<input type="submit" />
+				{{^archived}}
+				<button id="archiveButton" type="button" onclick="archive()">Archive Portfolio</button>
+				{{/archived}}
 			</form>
 		</div>
 		{{/artifacts}}
 		{{/student_learning_outcomes}}
 	</div>
 </section>
+
+<script>
+function archive() {
+	var newUrl = window.location.href.replace('course', 'course/archive');
+	document.location.href = newUrl;
+}
+</script>

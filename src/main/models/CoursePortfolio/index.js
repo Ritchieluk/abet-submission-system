@@ -24,7 +24,8 @@ class CoursePortfolio extends Model {
 				'semester_term_id',
 				'num_students',
 				'section',
-				'year'
+				'year',
+				'archived'
 			],
 
 			properties: {
@@ -34,7 +35,8 @@ class CoursePortfolio extends Model {
 				semester_term_id: { type: 'integer' },
 				num_students: { type: 'integer' },
 				section: { type: 'integer' },
-				year: { type: 'integer' }
+				year: { type: 'integer' },
+				archived: { type: 'boolean'}
 			}
 		};
 	}
