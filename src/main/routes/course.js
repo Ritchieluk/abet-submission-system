@@ -11,10 +11,11 @@ const Department = require('../models/Department')
 const TermType = require('../models/TermType')
 const Portfolio = require('../models/CoursePortfolio')
 
-const course_manage_page = async (res, course_id) => {
+const course_manage_page = async (res, course_id, isConfidential) => {
 	let portfolio = await Portfolio.query().findById(course_id);
 	let course_info = {
 		archived: portfolio.archived,
+		isConfidential: isConfidential,
 		student_learning_outcomes: [
 			{
 				index: 1,
@@ -141,7 +142,7 @@ router.route('/:id')
 		if (req.params.id === 'new') {
 			await course_new_page(res)
 		} else {
-			await course_manage_page(res, req.params.id)
+			await course_manage_page(res, req.params.id, true)
 		}
 	}))
 	.post(html.auth_wrapper(async (req, res, next) => {
@@ -159,9 +160,8 @@ router.route('/:id')
 						.map(entry => entry[0].split('_')[1]),
 					section: req.body.course_section
 				})
-
+				
 				const id = await course_portfolio_lib.save(course_portfolio);
-
 				if (id != -1) {
 					res.redirect(302, `/course/${id}`);
 				}
@@ -169,7 +169,16 @@ router.route('/:id')
 				await course_new_page(res, req.body.department)
 			}
 		} else {
-			await course_manage_page(res, 499)
+			var isConfidential = true;
+			if (req.body.submit_artifact) {
+				if (req.body.confidential) {
+					await course_portfolio_lib.update();
+				}
+				else {
+					isConfidential = false;
+				}
+			}
+			await course_manage_page(res, req.params.id, isConfidential);
 		}
 	}))
 

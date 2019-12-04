@@ -24,6 +24,11 @@ module.exports.new = async ({
 	};
 }
 
+
+module.exports.update = async () => {
+	return true;
+}
+
 module.exports.save = async (new_portfolio) => {
 	let trx;
 	try {
