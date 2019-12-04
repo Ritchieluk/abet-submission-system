@@ -27,16 +27,29 @@ async function constructPortfolios(bool){
 				var month = date.getMonth() + 1
 				var day = date.getDate()
 				var year = date.getFullYear()
-				date = month + "/" + day + "/" + year
-				active_courses_html = mustache.render('course/course_row',{
-					ID: courseID,
-					semester: portfolio['semester']['value'],
-					year: portfolio['year'],
-					artifact_progress: art_progress,
-					date: date,
-					location: portfolio['id']
-				})
-				courses += active_courses_html
+                date = month + "/" + day + "/" + year
+                if(bool){
+                    archived_courses_html = mustache.render('course/course_archive',{
+                        ID: courseID,
+                        semester: portfolio['semester']['value'],
+                        year: portfolio['year'],
+                        artifact_progress: art_progress,
+                        date: date,
+                        location: portfolio['id']
+                    })
+                    courses += archived_courses_html
+                } else {
+                    active_courses_html = mustache.render('course/course_row',{
+                        ID: courseID,
+                        semester: portfolio['semester']['value'],
+                        year: portfolio['year'],
+                        artifact_progress: art_progress,
+                        date: date,
+                        location: portfolio['id']
+                    })
+                    courses += active_courses_html
+                }
+				
 			}
             await trx.commit();
             return courses

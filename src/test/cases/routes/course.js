@@ -1,11 +1,11 @@
 const constructPortfolios = require('../../../main/routes/helper_functions');
 const { expect } = require('../../chai');
 
-describe('Route - course', () => {
+describe('Route - course get /', () => {
 
-	describe('course: get /', () => {
+	describe('constructPortfolios', () => {
 
-        
+        it('')
 
 	})
 
