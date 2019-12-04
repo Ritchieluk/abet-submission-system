@@ -14,7 +14,9 @@ const Course = require('../models/Course')
 const Artifact = require('../models/CoursePortfolio/Artifact')
 
 const course_manage_page = async (res, course_id) => {
+	let portfolio = await Portfolio.query().findById(course_id);
 	let course_info = {
+		archived: portfolio.archived,
 		student_learning_outcomes: [
 			{
 				index: 1,
@@ -80,7 +82,6 @@ const course_manage_page = async (res, course_id) => {
 			}
 		]
 	};
-
 	res.render('base_template', {
 		title: 'CS498 Course Portfolio',
 		body: mustache.render('course/manage', course_info)
@@ -108,6 +109,14 @@ const course_new_page = async (res, department = false) => {
 			semesters
 		})
 	})
+}
+
+router.get('/archive/:id', function (req, res, next) {archivePortfolio(req, res, req.params.id)})
+async function archivePortfolio(req, res, id) {
+	const numUpdated = await Portfolio.query()
+		.findOne('id', '=', id)
+		.patch({archived: true});
+	res.redirect(302, '/course/' + id)
 }
 
 /* GET course home page */

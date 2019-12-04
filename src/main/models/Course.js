@@ -23,8 +23,7 @@ class Course extends Model {
       properties: {
         id: { type: 'integer' },
         department_id: { type: 'integer' },
-        number: { type: 'integer' },
-        archived: { type: 'boolean'}
+        number: { type: 'integer' }
       }
     };
   }
