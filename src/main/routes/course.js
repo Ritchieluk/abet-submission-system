@@ -10,8 +10,6 @@ const constructPortfolios =  require('./helper_functions')
 const Department = require('../models/Department')
 const TermType = require('../models/TermType')
 const Portfolio = require('../models/CoursePortfolio')
-const Course = require('../models/Course')
-const Artifact = require('../models/CoursePortfolio/Artifact')
 
 const course_manage_page = async (res, course_id, isConfidential) => {
 	let portfolio = await Portfolio.query().findById(course_id);
