@@ -4,9 +4,12 @@ var html = require('../common/html')
 var course_portfolio_lib = require('../lib/course_portfolio')
 var router = express.Router();
 var cookieParser = require('cookie-parser')
+const { transaction } = require('objection')
 
 const Department = require('../models/Department')
 const TermType = require('../models/TermType')
+const Portfolio = require('../models/CoursePortfolio')
+const Course = require('../models/Course')
 
 const course_manage_page = async (res, course_id) => {
 	let course_info = {
@@ -108,28 +111,46 @@ const course_new_page = async (res, department = false) => {
 /* GET course home page */
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
-		/*let trx
+		let courses
+		let trx
 		try {
 			trx = await transaction.start(Portfolio.knex());
 
-			var theCourse = await Course.query().
+			let portfolios = await Portfolio.query().eager('semester')
+			for (portfolio of portfolios)  {
+				let course = await Course.query().findOne('id', '=', portfolio['course_id'])
+				let department = await Department.query().findOne('id', '=', course['department_id'])
+				courseID = String(department['identifier'])+course['number']
+				
+				
+				
+				let date = new Date(Date.now() + 12096e5)
+				var month = date.getMonth() + 1
+				var day = date.getDate()
+				var year = date.getFullYear()
+				date = month + "/" + day + "/" + year
+				active_courses_html = mustache.render('course/course_row',{
+					ID: courseID,
+					semester: portfolio['semester']['value'],
+					year: portfolio['year'],
+					artifact_progress: '6/9',
+					date: date,
+					location: portfolio['id']
+				})
+				courses += active_courses_html
+			}
+			await trx.commit();
 		} catch (err) {
-
-		}*/
+			console.log(err);
+			await trx.rollback();
+			return -1;
+		}
 		
 
-			active_courses_html = mustache.render('course/course_row',{
-				ID: 'CS420',
-				semester: 'Fall',
-				year: 2019,
-				artifact_progress: '6/9',
-				date: '12/08/19',
-				location: '23'
-			})
 		res.render('base_template', {
 			title: 'Course Portfolios',
 			body: mustache.render('course/index', {
-				active_courses: active_courses_html
+				active_courses: courses
 			}),
 			login_header: `<header class="row container">
 			<h3 id="user">Hello, ${req.cookies.username}</h3>
