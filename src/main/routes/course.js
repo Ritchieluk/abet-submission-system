@@ -6,6 +6,7 @@ var router = express.Router();
 var cookieParser = require('cookie-parser')
 const { transaction } = require('objection')
 
+const constructPortfolios =  require('./helper_functions')
 const Department = require('../models/Department')
 const TermType = require('../models/TermType')
 const Portfolio = require('../models/CoursePortfolio')
@@ -112,81 +113,9 @@ const course_new_page = async (res, department = false) => {
 /* GET course home page */
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
-		let courses = ""
-		let trx
-		try {
-			trx = await transaction.start(Portfolio.knex());
-
-			let portfolios = await Portfolio.query().eager('semester').where("archived", "=", false)
-			for (portfolio of portfolios)  {
-				let course = await Course.query().findOne('id', '=', portfolio['course_id'])
-				let department = await Department.query().findOne('id', '=', course['department_id'])
-				courseID = String(department['identifier'])+course['number']
-				
-				let plo = await Portfolio.query().eager('outcomes').findOne('id', '=', portfolio['id'])
-				let artifactCount = await Artifact.query().where("portfolio_slo_id", "=", plo['id']).count('*')
-				let eval_num = parseInt(portfolio['num_students'] / 10) > 10   ?  10 : parseInt(portfolio['num_students']/10)
-				let art_progress = artifactCount[0]['count'] + '/' + eval_num
-
-				let date = new Date(Date.now() + 12096e5)
-				var month = date.getMonth() + 1
-				var day = date.getDate()
-				var year = date.getFullYear()
-				date = month + "/" + day + "/" + year
-				active_courses_html = mustache.render('course/course_row',{
-					ID: courseID,
-					semester: portfolio['semester']['value'],
-					year: portfolio['year'],
-					artifact_progress: art_progress,
-					date: date,
-					location: portfolio['id']
-				})
-				courses += active_courses_html
-			}
-			await trx.commit();
-		} catch (err) {
-			console.log(err);
-			await trx.rollback();
-			return -1;
-		}
+		let courses = await constructPortfolios(false)
+		let archived_courses = await constructPortfolios(true)
 		
-		let archived_courses = ""
-		try {
-			trx = await transaction.start(Portfolio.knex());
-
-			let portfolios = await Portfolio.query().eager('semester').where("archived", "=", true)
-			for (portfolio of portfolios)  {
-				let course = await Course.query().findOne('id', '=', portfolio['course_id'])
-				let department = await Department.query().findOne('id', '=', course['department_id'])
-				courseID = String(department['identifier'])+course['number']
-				
-				let plo = await Portfolio.query().eager('outcomes').findOne('id', '=', portfolio['id'])
-				let artifactCount = await Artifact.query().where("portfolio_slo_id", "=", plo['id']).count('*')
-				let eval_num = parseInt(portfolio['num_students'] / 10) > 10   ?  10 : parseInt(portfolio['num_students']/10)
-				let art_progress = artifactCount[0]['count'] + '/' + eval_num
-				
-				let date = new Date(Date.now() + 12096e5)
-				var month = date.getMonth() + 1
-				var day = date.getDate()
-				var year = date.getFullYear()
-				date = month + "/" + day + "/" + year
-				active_courses_html = mustache.render('course/course_archive',{
-					ID: courseID,
-					semester: portfolio['semester']['value'],
-					year: portfolio['year'],
-					artifact_progress: art_progress,
-					date: date,
-					location: portfolio['id']
-				})
-				archived_courses += active_courses_html
-			}
-			await trx.commit();
-		} catch (err) {
-			console.log(err);
-			await trx.rollback();
-			return -1;
-		}
-		console.log(archived_courses)
 		res.render('base_template', {
 			title: 'Course Portfolios',
 			body: mustache.render('course/index', {
