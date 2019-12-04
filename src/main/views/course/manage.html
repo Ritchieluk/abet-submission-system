@@ -74,14 +74,16 @@
 					</tr>
 					{{/evaluations}}
 				</table>
-				<input type="submit" />
 				{{^archived}}
-				<button id="archiveButton" type="button" onclick="archive()">Archive Portfolio</button>
+				<input type="submit" />
 				{{/archived}}
 			</form>
 		</div>
 		{{/artifacts}}
 		{{/student_learning_outcomes}}
+		{{^archived}}
+		<button id="archiveButton" type="button" onclick="archive()">Archive Portfolio</button>
+		{{/archived}}
 	</div>
 </section>
 
