@@ -75,8 +75,14 @@
 					{{/evaluations}}
 				</table>
 				{{^archived}}
-				<input type="submit" />
+				<input type="submit" name="submit_artifact"/>
+				<input type="checkbox" name="confidential" value="Confidential">Meets Privacy Requirements<br>
 				{{/archived}}
+				{{^isConfidential}}
+				<div id="errorMessage" >
+					<h5 id="errorHeader" class="error">You must verify data confidentiality!</h3>
+				</div>
+				{{/isConfidential}}
 			</form>
 		</div>
 		{{/artifacts}}
