@@ -7,10 +7,7 @@ var mustache = require('C:/Users/ritch/Documents/CSFall2019/abet-submission-syst
 
 const sandbox = sinon.createSandbox();
 
-const sinon = require('sinon')
-
 // we use a sandbox so that we can easily restore all stubs created in that sandbox
-const sandbox = sinon.createSandbox();
 
 describe('Route - course get /', () => {
 
