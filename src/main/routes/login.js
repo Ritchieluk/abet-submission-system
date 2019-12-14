@@ -11,7 +11,6 @@ router.get('/', function (req, res, next) {
 	})
 })
 
-// This is for a test push
 
 /* POST login page */
 router.post('/', function (req, res, next) {loginPost(req, res, next)})
