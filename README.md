@@ -1,5 +1,6 @@
 [![Action Status](https://github.com/Ritchieluk/abet-submission-system/workflows/Node%20CI/badge.svg)](https://github.com/Ritchieluk/abet-submission-system/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/Ritchieluk/abet-submission-system/badge.svg)](https://snyk.io/test/github/Ritchieluk/abet-submission-system)
+[![Dependencies](https://david-dm.org/Ritchieluk/abet-submission-system.svg)](https://david-dm.org/Ritchieluk/abet-submission-system)
 
 
 # ABET Submission System
