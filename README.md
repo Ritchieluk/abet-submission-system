@@ -1,3 +1,6 @@
+[![Actions Status](https://github.com/Ritchieluk/abet-submission-system/workflows/Node%20CI/badge.svg)](https://github.com/Ritchieluk/abet-submission-system/actions)
+
+
 # ABET Submission System
 
 This repository is being developed by Ethan Toney for use by the Computer Science department at the University of Kentucky. Only students of Ethan Toney's Fall 2019 CS498 course have permission to download and edit this repository for the purpose of accomplishing the final project.
